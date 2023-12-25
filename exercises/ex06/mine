@@ -1,0 +1,94 @@
+"""Dictionary Tests Exercise."""
+__author__ = "730645861"
+
+from exercises.ex06.dictionary import invert, favorite_color, count, alphabetizer, update_attendance
+
+
+def test_expected():
+    """Tests the output if given an empty dictionary (use case)."""
+    input = {"a": "z"}
+    assert invert(input) == {"z": "a"}
+
+
+def test_integers():
+    """Tests the output if given an integer (edge case)."""
+    input = {3: 3}
+    assert invert(input) == {3: 3}
+
+
+def test_long_strings():
+    """Tests the output if given a long sting (use case)."""
+    input = {"hahahahahahhahahaha": "AHHAHAHAHAHHAHAHAH"}
+    assert invert(input) == {"AHHAHAHAHAHHAHAHAH": "hahahahahahhahahaha"}
+
+
+def test_no_multiples():
+    """Tests the function when no favorite is apparent (use case)."""
+    input = {"Marc": "red", "Felix": "blue", "Marco": "orange"}
+    assert favorite_color(input) == "None"
+
+
+def test_fav_color():
+    """Tests if the function works (use case)."""
+    input = {"Marc": "red", "Felix": "blue", "Marco": "blue"}
+    assert favorite_color(input) == "blue"
+
+
+def test_flipped_input():
+    """Tests what the function returns given flipped inputs(edge case)."""
+    input = {"red": "Marc", "blue": "Felix", "yellow": "Marco"}
+    assert favorite_color(input) == "None"
+
+
+def test_count_works():
+    """Tests if function works under normal conditions (use case)."""
+    input = ["Hello", "Hello", "bye"]
+    assert count(input) == {"Hello": 2, "bye": 1}
+
+
+def test_no_multiple():
+    """Tests if function works with no multiples."""
+    input = ["Hello", "Bye"]
+    assert count(input) == {"Hello": 1, "Bye": 1}
+
+
+def test_wrong_count_input():
+    """Tests how functions behaves when given wrong types(edge case)."""  
+    input = [4, 4] 
+    assert count(input) == {4: 2}
+
+
+def test_alphabetizer():
+    """Tests if function works under use conditions (use case)."""
+    input = ["cat", "apple", "boy", "angry", "bad", "car"]
+    assert alphabetizer(input) == {'c': ['cat', 'car'], 'a': ['apple', 'angry'], 'b': ['boy', 'bad']}
+
+
+def test_wrong_input():
+    """Tests if function works under wrong use type inputted(edge case)."""
+    input = []
+    assert alphabetizer(input) == "None"
+
+
+def test_upper_case():
+    """Test if function makes lower case letters from upper case (use case)."""
+    input = ["Python", "sugar", "Turtle", "party", "table"]
+    assert alphabetizer(input) == {'p': ['Python', 'party'], 's': ['sugar'], 't': ['Turtle', 'table']}
+
+
+def test_update_attendance():
+    """Test if function works under normal conditions (use case)."""
+    attendance_log: dict = {"Monday": ["Vrinda", "Kaleb"], "Tuesday": ["Alyssa"]}
+    assert update_attendance(attendance_log, "Tuesday", "Vrinda") == {'Monday': ['Vrinda', 'Kaleb'], 'Tuesday': ['Alyssa', 'Vrinda']}
+
+
+def test_wrong_alphabetizer():
+    """Tests how function behaves with a function that has no dictionary values (use case)."""
+    attendance_log: dict = {}
+    assert update_attendance(attendance_log, "Tuesday", "Vrinda") == {'Tuesday': ['Vrinda']}
+
+
+def test_edge_alphabetizer():
+    """Tests how function behaves with only numbers in dictionary (edge case)."""
+    attendance_log: dict = {"1": ["3"], "2": ["4"]}
+    assert update_attendance(attendance_log, "Tuesday", "Vrinda") == {'1': ['3'], '2': ['4'], 'Tuesday': ['Vrinda']}
